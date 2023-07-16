@@ -8,5 +8,6 @@ import (
 
 func main() {
 	log.Print("Hello world!!")
-	modules.ReverseWord()
+	// modules.ReverseWord()
+	modules.Sort012()
 }
