@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>SSE Prototype</title>
+    </head>
+    <body>
+        <div id="sse-data"></div>
+        <script>
+            const eventSource = new EventSource('http://localhost:8080/events');
+            eventSource.onmessage = function(event) {
+                const dataElement = document.getElementById('sse-data');
+                dataElement.innerHTML += event.data + '<br>';
+            };
+        </script>
+    </body>
+</html>
