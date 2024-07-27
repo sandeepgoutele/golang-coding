@@ -1,7 +1,10 @@
 package main
 
 import (
+	"fmt"
+	"strings"
 	"sync"
+	"time"
 
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/sandeepgoutele/golang-coding/airline_checkin/airline"
@@ -40,6 +43,7 @@ func book(dbInstance *airline.DBSingleton, user *airline.User) (*airline.Seat, e
 }
 
 func main() {
+	now := time.Now()
 	log.SetLevel(log.DebugLevel)
 	dbInstance := airline.GetInstance()
 	defer dbInstance.DbObj.Close()
@@ -61,4 +65,29 @@ func main() {
 		}(&users[idx])
 	}
 	wg.Wait()
+
+	seats := airline.GetSeats(dbInstance)
+	seatPlot := make([]string, 6)
+	for _, seat := range seats {
+		label := []rune(strings.Split(seat.Name, "-")[1])
+		occupied := "."
+		if seat.UserID.Valid {
+			occupied = "x"
+		}
+		seatPlot[label[0]-'A'] = fmt.Sprintf("%s %s ", seatPlot[label[0]-'A'], occupied)
+	}
+
+	for idx, plot := range seatPlot {
+		if idx%3 == 0 {
+			log.Println()
+		}
+		log.Println(plot)
+	}
+
+	fmt.Println()
+	airline.ResetSeats(dbInstance)
+
+	fmt.Println()
+	newNow := time.Now()
+	log.Println("Time taken for full execution: ", newNow.Sub(now))
 }

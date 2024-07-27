@@ -22,7 +22,7 @@ type Seat struct {
 	ID     int
 	Name   string
 	TripID int
-	UserID int
+	UserID sql.NullInt16
 }
 
 type DBSingleton struct {
@@ -86,4 +86,47 @@ func GetUsers(dbInstance *DBSingleton) []User {
 	*/
 
 	return users
+}
+
+func GetSeats(dbInstance *DBSingleton) []Seat {
+	query := `SELECT * from seats`
+	rows, err := dbInstance.DbObj.Query(query)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	defer rows.Close()
+
+	var seats []Seat
+	for rows.Next() {
+		var seat Seat
+		err := rows.Scan(&seat.ID, &seat.Name, &seat.TripID, &seat.UserID)
+		if err != nil {
+			log.Fatal(err)
+		}
+		seats = append(seats, seat)
+	}
+
+	err = rows.Err()
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	return seats
+}
+
+func ResetSeats(dbInstance *DBSingleton) {
+	query := `UPDATE seats SET user_id = NULL`
+	result, err := dbInstance.DbObj.Exec(query)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	// Get the number of rows affected
+	rowsAffected, err := result.RowsAffected()
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	fmt.Printf("Number of rows affected: %d\n", rowsAffected)
 }
