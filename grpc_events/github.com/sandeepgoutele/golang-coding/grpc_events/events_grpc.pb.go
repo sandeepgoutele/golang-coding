@@ -2,9 +2,9 @@
 // versions:
 // - protoc-gen-go-grpc v1.5.1
 // - protoc             v5.28.2
-// source: grpc_events.proto
+// source: events.proto
 
-package grpc_events
+package events
 
 import (
 	context "context"
@@ -19,7 +19,7 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	EventService_SendEvent_FullMethodName = "/grpc_events.EventService/SendEvent"
+	EventService_SendEvent_FullMethodName = "/events.EventService/SendEvent"
 )
 
 // EventServiceClient is the client API for EventService service.
@@ -110,7 +110,7 @@ func _EventService_SendEvent_Handler(srv interface{}, ctx context.Context, dec f
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var EventService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "grpc_events.EventService",
+	ServiceName: "events.EventService",
 	HandlerType: (*EventServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
@@ -119,5 +119,5 @@ var EventService_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "grpc_events.proto",
+	Metadata: "events.proto",
 }
