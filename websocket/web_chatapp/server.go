@@ -13,12 +13,12 @@ var upgrader = websocket.Upgrader{
 	WriteBufferSize: 1024,
 }
 
-var clients []websocket.Conn
+var clients []*websocket.Conn
 
 func main() {
 	http.HandleFunc("/echo", func(w http.ResponseWriter, r *http.Request) {
 		conn, _ := upgrader.Upgrade(w, r, nil)
-		clients = append(clients, *conn)
+		clients = append(clients, conn)
 
 		for {
 			msgType, msg, err := conn.ReadMessage()
