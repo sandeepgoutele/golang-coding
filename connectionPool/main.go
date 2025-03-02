@@ -68,7 +68,7 @@ func benchmarkPool() {
 		panic(err)
 	}
 	var wg sync.WaitGroup
-	for idx := 0; idx < 5000; idx++ {
+	for idx := 0; idx < 500; idx++ {
 		wg.Add(1)
 		go func() {
 			defer wg.Done()

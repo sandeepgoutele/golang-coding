@@ -11,7 +11,7 @@ import (
 
 func main() {
 	dbInstance := airline.GetInstance()
-	fmt.Println("Cleaned up users table before populating new data!")
+	fmt.Println("Cleaning up users table before populating new data!")
 	query := `TRUNCATE TABLE users`
 	_, err := dbInstance.DbObj.Exec(query)
 	if err != nil {

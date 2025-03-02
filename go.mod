@@ -8,6 +8,7 @@ require (
 	github.com/brianvoe/gofakeit v3.18.0+incompatible
 	github.com/brianvoe/gofakeit/v6 v6.28.0
 	github.com/go-sql-driver/mysql v1.8.1
+	github.com/gorilla/mux v1.8.1
 	github.com/sirupsen/logrus v1.9.3
 	golang.org/x/exp v0.0.0-20240719175910-8a7402abbf56
 )
